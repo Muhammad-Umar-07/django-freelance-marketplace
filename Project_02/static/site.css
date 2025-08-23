@@ -1,0 +1,32 @@
+/* Small visual polish */
+.card-hover:hover {
+  transform: translateY(-2px);
+  transition: transform 120ms ease;
+}
+
+.navbar .btn.btn-link.nav-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar .btn.btn-link.nav-link:hover {
+  text-decoration: underline;
+}
+
+/* Dark mode tweaks */
+body {
+  background: #0e0f12;
+}
+
+.hero {
+  background: linear-gradient(135deg, rgba(22,28,36,.9), rgba(33,37,41,.6));
+  border-radius: .75rem;
+  padding: 3rem 1rem;
+}
+
+.badge.bg-secondary {
+  background-color: #6c757d !important;
+}
+
+
+
