@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Complete Your Profile · Freelance Marketplace{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-7">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h1 class="h4 mb-4">Complete Your Profile</h1>
+        <form method="post" novalidate>
+          {% csrf_token %}
+          
+          <div class="mb-4">
+            <label for="id_role" class="form-label">I want to join as a:</label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="role" id="role_freelancer" value="freelancer" required>
+                <label class="form-check-label" for="role_freelancer">
+                  Freelancer
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="role" id="role_client" value="client" required>
+                <label class="form-check-label" for="role_client">
+                  Client
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              {{ form.country|as_crispy_field }}
+            </div>
+            <div class="col-md-6">
+              {{ form.contact_email|as_crispy_field }}
+            </div>
+          </div>
+
+          {# Freelancer Fields #}
+          <div id="freelancer-fields" style="display: none;">
+            <h3 class="h5 mt-4 mb-3">Freelancer Information</h3>
+            
+            <div class="row">
+              <div class="col-md-6">
+                {{ form.skills|as_crispy_field }}
+              </div>
+              <div class="col-md-6">
+                {{ form.languages|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                {{ form.hourly_rate|as_crispy_field }}
+              </div>
+              <div class="col-md-6">
+                {{ form.portfolio_url|as_crispy_field }}
+              </div>
+            </div>
+
+            {{ form.experience|as_crispy_field }}
+          </div>
+
+          {# Client Fields #}
+          <div id="client-fields" style="display: none;">
+            <h3 class="h5 mt-4 mb-3">Client Information</h3>
+            
+            <div class="row">
+              <div class="col-md-6">
+                {{ form.desired_freelancer_type|as_crispy_field }}
+              </div>
+              <div class="col-md-6">
+                {{ form.budget|as_crispy_field }}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                {{ form.desired_skills|as_crispy_field }}
+              </div>
+              <div class="col-md-6">
+                {{ form.preferred_languages|as_crispy_field }}
+              </div>
+            </div>
+
+            {{ form.requirements_description|as_crispy_field }}
+          </div>
+
+          <button class="btn btn-primary w-100 mt-4">Complete Profile</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const roleFreelancer = document.getElementById('role_freelancer');
+    const roleClient = document.getElementById('role_client');
+    const freelancerFields = document.getElementById('freelancer-fields');
+    const clientFields = document.getElementById('client-fields');
+
+    function toggleFields() {
+      if (roleFreelancer.checked) {
+        freelancerFields.style.display = 'block';
+        clientFields.style.display = 'none';
+      } else if (roleClient.checked) {
+        freelancerFields.style.display = 'none';
+        clientFields.style.display = 'block';
+      }
+    }
+
+    roleFreelancer.addEventListener('change', toggleFields);
+    roleClient.addEventListener('change', toggleFields);
+    
+    // Initial check
+    toggleFields();
+  });
+</script>
+{% endblock %}
+{% endblock %}
